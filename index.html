@@ -5,37 +5,43 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Skill Monitor</title>
     <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
     <div class="container">
-        <button id="edit-text-btn">Edit Text</button>
+        <h1 contenteditable="true" onblur="saveText(this)">Skill Monitor</h1>
+        <button id="mental-btn" contenteditable="true" onblur="saveText(this)" onclick="showSkillList('mental')">Mental Skills</button>
+        <button id="physical-btn" contenteditable="true" onblur="saveText(this)" onclick="showSkillList('physical')">Physical Skills</button>
+        <div id="mental-skills" class="hidden">
+            <h2>Mental Skills</h2>
+            <ul id="mental-skill-list"></ul>
+            <button onclick="showSkillManagement('mental')">Manage Mental Skills</button>
+            <button onclick="goBack()">Back</button>
+        </div>
+        <div id="physical-skills" class="hidden">
+            <h2>Physical Skills</h2>
+            <ul id="physical-skill-list"></ul>
+            <button onclick="showSkillManagement('physical')">Manage Physical Skills</button>
+            <button onclick="goBack()">Back</button>
+        </div>
+        <div id="skill-details" class="hidden">
+            <h2 id="skill-name" contenteditable="true" onblur="saveText(this)"></h2>
+            <p>Experience: <span id="experience">0</span> points</p>
+            <p>Level: <span id="level">1</span></p>
+            <div class="progress-bar-container">
+                <div class="progress-bar" id="experience-bar"></div>
+            </div>
+            <button id="hour-button" onmousedown="startAddingPoints(1)" onmouseup="stopAddingPoints()" onmouseleave="stopAddingPoints()">Add 1 Hour</button>
+            <button id="minute-button" onmousedown="startAddingPoints(0.5)" onmouseup="stopAddingPoints()" onmouseleave="stopAddingPoints()">Add 30 Minutes</button>
+            <button id="remove-hour-button" onmousedown="startRemovingPoints(1)" onmouseup="stopRemovingPoints()" onmouseleave="stopRemovingPoints()">Remove 1 Hour</button>
+            <button id="remove-minute-button" onmousedown="startRemovingPoints(0.5)" onmouseup="stopRemovingPoints()" onmouseleave="stopRemovingPoints()">Remove 30 Minutes</button>
+            <button onclick="goBack()">Back</button>
+        </div>
         <div id="skill-management" class="hidden">
-            <h1 id="management-title" contenteditable="true">Mental Skills Management</h1>
+            <h2 id="management-title"></h2>
             <ul id="skill-list"></ul>
             <input type="text" id="new-skill-name" placeholder="New Skill Name">
             <button onclick="addSkill()">Add Skill</button>
-        </div>
-        <div id="mental-skills" class="hidden">
-            <h1 contenteditable="true">Mental Skills</h1>
-            <ul id="mental-skill-list"></ul>
-            <button onclick="showSkillManagement('mental')">Manage Skills</button>
-        </div>
-        <div id="physical-skills" class="hidden">
-            <h1 contenteditable="true">Physical Skills</h1>
-            <ul id="physical-skill-list"></ul>
-            <button onclick="showSkillManagement('physical')">Manage Skills</button>
-        </div>
-        <div id="skill-details" class="hidden">
-            <h1 id="skill-name" contenteditable="true"></h1>
-            <div class="progress-bar-container">
-                <div id="experience-bar" class="progress-bar"></div>
-            </div>
-            <p>Experience: <span id="experience"></span></p>
-            <p>Level: <span id="level"></span></p>
-            <button id="hour-button" onmousedown="startAddingPoints(1)" onmouseup="stopAddingPoints()">Add 1 Hour</button>
-            <button id="minute-button" onmousedown="startAddingPoints(0.5)" onmouseup="stopAddingPoints()">Add 30 Mins</button>
-            <button id="remove-hour-button" onmousedown="startRemovingPoints(1)" onmouseup="stopRemovingPoints()">Remove 1 Hour</button>
-            <button id="remove-minute-button" onmousedown="startRemovingPoints(0.5)" onmouseup="stopRemovingPoints()">Remove 30 Mins</button>
             <button onclick="goBack()">Back</button>
         </div>
     </div>
