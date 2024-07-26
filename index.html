@@ -28,10 +28,10 @@
             </div>
             <p>Experience: <span id="experience"></span></p>
             <p>Level: <span id="level"></span></p>
-            <button id="add-hour-button" onmousedown="startAddingPoints(1)" onmouseup="stopAddingPoints()">Add 1 Hour</button>
-            <button id="add-minute-button" onmousedown="startAddingPoints(0.5)" onmouseup="stopAddingPoints()">Add 30 Mins</button>
-            <button id="remove-hour-button" onmousedown="startRemovingPoints(1)" onmouseup="stopRemovingPoints()">Remove 1 Hour</button>
-            <button id="remove-minute-button" onmousedown="startRemovingPoints(0.5)" onmouseup="stopRemovingPoints()">Remove 30 Mins</button>
+            <button id="add-hour-button" contenteditable="true" onmousedown="startAddingPoints(1)" onmouseup="stopAddingPoints()">Add 1 Hour</button>
+            <button id="add-minute-button" contenteditable="true" onmousedown="startAddingPoints(0.5)" onmouseup="stopAddingPoints()">Add 30 Mins</button>
+            <button id="remove-hour-button" contenteditable="true" onmousedown="startRemovingPoints(1)" onmouseup="stopRemovingPoints()">Remove 1 Hour</button>
+            <button id="remove-minute-button" contenteditable="true" onmousedown="startRemovingPoints(0.5)" onmouseup="stopRemovingPoints()">Remove 30 Mins</button>
             <button onclick="goBack()">Back</button>
         </div>
         <div id="skill-management" class="hidden">
