@@ -26,6 +26,9 @@ h1 {
     max-height: 400px;
     overflow-y: auto;
     margin-bottom: 20px;
+    border: 1px solid #4b5a6e;
+    border-radius: 5px;
+    padding: 10px;
 }
 
 .skill-card {
@@ -35,6 +38,11 @@ h1 {
     border-radius: 5px;
     padding: 10px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    transition: background 0.3s ease;
+}
+
+.skill-card:hover {
+    background: #6e7d91;
 }
 
 .hidden {
@@ -62,6 +70,7 @@ button {
     color: #fff;
     border-radius: 5px;
     cursor: pointer;
+    transition: background 0.3s ease;
 }
 
 button:hover {
@@ -85,9 +94,22 @@ button:active {
     margin-right: 10px;
     border-radius: 5px;
     border: none;
+    outline: none;
 }
 
 #add-skill-form button {
     padding: 10px;
+    border: none;
+    border-radius: 5px;
+    background: #6373b6;
+    color: #fff;
+    cursor: pointer;
 }
 
+#add-skill-form button:hover {
+    background: #4f5a8a;
+}
+
+#add-skill-form button:active {
+    background: #3e4a68;
+}
