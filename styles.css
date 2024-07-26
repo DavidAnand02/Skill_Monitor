@@ -18,30 +18,8 @@ body {
     text-align: center;
 }
 
-h1 {
-    margin-bottom: 20px;
-}
-
-.skill-card {
-    margin-bottom: 20px;
-    cursor: pointer;
-}
-
 .hidden {
     display: none;
-}
-
-.progress-bar-container {
-    background: #1e293b;
-    border-radius: 5px;
-    overflow: hidden;
-    margin-bottom: 10px;
-}
-
-.progress-bar {
-    height: 20px;
-    background: #6373b6;
-    width: 0;
 }
 
 button {
@@ -62,16 +40,15 @@ button:active {
     background: #3e4a68;
 }
 
-.effect {
-    margin-bottom: 20px;
+.progress-bar-container {
+    background: #1e293b;
+    border-radius: 5px;
+    overflow: hidden;
+    margin-bottom: 10px;
 }
 
-.skill-card h2 {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.skill-card i {
-    margin-right: 10px;
+.progress-bar {
+    height: 20px;
+    background: #6373b6;
+    width: 0;
 }
