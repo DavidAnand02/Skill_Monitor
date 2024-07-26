@@ -14,7 +14,7 @@ body {
     padding: 20px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     border-radius: 10px;
-    width: 400px;
+    width: 350px;
     text-align: center;
 }
 
@@ -22,14 +22,13 @@ h1 {
     margin-bottom: 20px;
 }
 
+.category {
+    margin-bottom: 30px;
+}
+
 .skill-card {
     margin-bottom: 20px;
     cursor: pointer;
-    background: #4a5a7b;
-    padding: 15px;
-    border-radius: 8px;
-    border: 1px solid #5a6a8b;
-    position: relative;
 }
 
 .hidden {
@@ -71,7 +70,7 @@ button:active {
     margin-bottom: 20px;
 }
 
-.skill-card h2 {
+.skill-card h3 {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -79,15 +78,4 @@ button:active {
 
 .skill-card i {
     margin-right: 10px;
-}
-
-.add-skill {
-    margin-top: 20px;
-}
-
-input {
-    padding: 10px;
-    margin-right: 10px;
-    border: none;
-    border-radius: 5px;
 }
