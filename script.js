@@ -172,7 +172,18 @@ function saveSkills(type) {
     localStorage.setItem(`${type}Skills`, JSON.stringify(skills[type]));
 }
 
+function saveText(element) {
+    const key = element.id;
+    localStorage.setItem(key, element.innerText);
+}
+
 // Initialize
 document.addEventListener('DOMContentLoaded', () => {
+    document.querySelectorAll('[contenteditable=true]').forEach(element => {
+        const savedText = localStorage.getItem(element.id);
+        if (savedText) {
+            element.innerText = savedText;
+        }
+    });
     showSkillList('mental');
 });
