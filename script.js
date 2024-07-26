@@ -1,53 +1,50 @@
-const skills = {
-    'super-learning': {
-        experience: 0,
-        level: 1,
-        retention: 0,
-        speed: 0
-    },
-    'kolbs': {
-        experience: 0,
-        level: 1,
-        improvement: 0,
-        reflection: 0
-    }
+let skills = {
+    mental: ['Super Learning', 'Meditation', 'KOLBS'],
+    physical: ['Push ups', 'KOT Split Squats']
 };
 
+let currentSkill = '';
+let experience = 0;
+let level = 1;
 const maxLevel = 100;
 const maxExperience = 10000;
 let interval;
 
-function toggleSkillDetails(skill) {
-    const skillDetails = document.getElementById(`${skill}-details`);
-    skillDetails.classList.toggle('hidden');
+function showSkillList(type) {
+    document.getElementById('mental-skills').classList.add('hidden');
+    document.getElementById('physical-skills').classList.add('hidden');
+    document.getElementById('skill-details').classList.add('hidden');
+    document.getElementById('skill-management').classList.add('hidden');
+    document.getElementById(`${type}-skills`).classList.remove('hidden');
 }
 
-function addExperience(skill, hours) {
-    skills[skill].experience += hours;
-    if (skills[skill].experience < 0) skills[skill].experience = 0;
-    saveProgress();
-    updateLevel(skill);
-    updateProgressBar(`${skill}-bar`, skills[skill].experience - getLevelExperience(skills[skill].level - 1), getLevelExperience(skills[skill].level) - getLevelExperience(skills[skill].level - 1));
-    document.getElementById(`${skill}-experience`).innerText = skills[skill].experience.toFixed(1);
+function showSkillDetails(skill) {
+    currentSkill = skill;
+    experience = loadProgress(skill).experience || 0;
+    level = loadProgress(skill).level || 1;
+    document.getElementById('skill-details').classList.remove('hidden');
+    document.getElementById('mental-skills').classList.add('hidden');
+    document.getElementById('physical-skills').classList.add('hidden');
+    document.getElementById('skill-name').innerText = skill;
+    updateLevel();
+    updateProgressBar('experience-bar', experience - getLevelExperience(level - 1), getLevelExperience(level) - getLevelExperience(level - 1));
+    document.getElementById('experience').innerText = experience;
 }
 
-function removeExperience(skill, hours) {
-    skills[skill].experience -= hours;
-    if (skills[skill].experience < 0) skills[skill].experience = 0;
-    saveProgress();
-    updateLevel(skill);
-    updateProgressBar(`${skill}-bar`, skills[skill].experience - getLevelExperience(skills[skill].level - 1), getLevelExperience(skills[skill].level) - getLevelExperience(skills[skill].level - 1));
-    document.getElementById(`${skill}-experience`).innerText = skills[skill].experience.toFixed(1);
+function goBack() {
+    document.getElementById('skill-details').classList.add('hidden');
+    document.getElementById('skill-management').classList.add('hidden');
+    showSkillList(currentSkill.includes(' ') ? 'physical' : 'mental');
 }
 
-function startAddingPoints(skill, hours) {
-    addExperience(skill, hours);
-    interval = setInterval(() => addExperience(skill, hours), 100);
+function startAddingPoints(hours) {
+    addExperience(hours);
+    interval = setInterval(() => addExperience(hours), 100);
 }
 
-function startRemovingPoints(skill, hours) {
-    removeExperience(skill, hours);
-    interval = setInterval(() => removeExperience(skill, hours), 100);
+function startRemovingPoints(hours) {
+    removeExperience(hours);
+    interval = setInterval(() => removeExperience(hours), 100);
 }
 
 function stopAddingPoints() {
@@ -58,21 +55,30 @@ function stopRemovingPoints() {
     clearInterval(interval);
 }
 
-function updateLevel(skill) {
+function addExperience(hours) {
+    experience += hours;
+    saveProgress(currentSkill);
+    updateLevel();
+    updateProgressBar('experience-bar', experience - getLevelExperience(level - 1), getLevelExperience(level) - getLevelExperience(level - 1));
+    document.getElementById('experience').innerText = experience;
+}
+
+function removeExperience(hours) {
+    experience -= hours;
+    if (experience < 0) experience = 0;
+    saveProgress(currentSkill);
+    updateLevel();
+    updateProgressBar('experience-bar', experience - getLevelExperience(level - 1), getLevelExperience(level) - getLevelExperience(level - 1));
+    document.getElementById('experience').innerText = experience;
+}
+
+function updateLevel() {
     let newLevel = 1;
-    while (skills[skill].experience >= getLevelExperience(newLevel) && newLevel < maxLevel) {
+    while (experience >= getLevelExperience(newLevel) && newLevel < maxLevel) {
         newLevel++;
     }
-    skills[skill].level = newLevel;
-    document.getElementById(`${skill}-level`).innerText = skills[skill].level;
-
-    if (skill === 'super-learning') {
-        updateEffectProgress('super-learning-retention-bar', skills[skill].level, skills[skill].retention);
-        updateEffectProgress('super-learning-speed-bar', skills[skill].level, skills[skill].speed);
-    } else if (skill === 'kolbs') {
-        updateEffectProgress('kolbs-improvement-bar', skills[skill].level, skills[skill].improvement);
-        updateEffectProgress('kolbs-reflection-bar', skills[skill].level, skills[skill].reflection);
-    }
+    level = newLevel;
+    document.getElementById('level').innerText = level;
 }
 
 function getLevelExperience(level) {
@@ -81,39 +87,64 @@ function getLevelExperience(level) {
 
 function updateProgressBar(id, value, maxValue) {
     const progressBar = document.getElementById(id);
-    const percentage = Math.min((value / maxValue) * 100, 100);
+    const percentage = (value / maxValue) * 100;
     progressBar.style.width = `${percentage}%`;
 }
 
-function updateEffectProgress(id, level, effectLevel) {
-    const effectStage = getEffectStage(level);
-    const progressBar = document.getElementById(id);
-    const stages = { beginner: 33, intermediate: 66, advanced: 100 };
-    progressBar.style.width = `${stages[effectStage]}%`;
+function saveProgress(skill) {
+    localStorage.setItem(`${skill}-experience`, experience);
+    localStorage.setItem(`${skill}-level`, level);
 }
 
-function getEffectStage(level) {
-    if (level < 34) return 'beginner';
-    if (level < 67) return 'intermediate';
-    return 'advanced';
+function loadProgress(skill) {
+    const savedExperience = localStorage.getItem(`${skill}-experience`);
+    const savedLevel = localStorage.getItem(`${skill}-level`);
+    
+    return {
+        experience: savedExperience !== null ? parseFloat(savedExperience) : 0,
+        level: savedLevel !== null ? parseInt(savedLevel) : 1
+    };
 }
 
-function saveProgress() {
-    localStorage.setItem('skills', JSON.stringify(skills));
+function showSkillManagement(type) {
+    const skillList = document.getElementById('skill-list');
+    skillList.innerHTML = '';
+    skills[type].forEach(skill => {
+        const li = document.createElement('li');
+        li.innerText = skill;
+        li.onclick = () => {
+            const newName = prompt('Enter new skill name:', skill);
+            if (newName) {
+                renameSkill(type, skill, newName);
+                showSkillManagement(type);
+            }
+        };
+        skillList.appendChild(li);
+    });
+    document.getElementById('management-title').innerText = `${type.charAt(0).toUpperCase() + type.slice(1)} Skills Management`;
+    document.getElementById('skill-management').classList.remove('hidden');
+    document.getElementById('mental-skills').classList.add('hidden');
+    document.getElementById('physical-skills').classList.add('hidden');
 }
 
-function loadProgress() {
-    const savedSkills = localStorage.getItem('skills');
-    if (savedSkills) {
-        Object.assign(skills, JSON.parse(savedSkills));
+function renameSkill(type, oldName, newName) {
+    const index = skills[type].indexOf(oldName);
+    if (index > -1) {
+        skills[type][index] = newName;
+        localStorage.setItem(`${newName}-experience`, localStorage.getItem(`${oldName}-experience`));
+        localStorage.setItem(`${newName}-level`, localStorage.getItem(`${oldName}-level`));
+        localStorage.removeItem(`${oldName}-experience`);
+        localStorage.removeItem(`${oldName}-level`);
     }
 }
 
-document.addEventListener('DOMContentLoaded', () => {
-    loadProgress();
-    Object.keys(skills).forEach(skill => {
-        updateLevel(skill);
-        updateProgressBar(`${skill}-bar`, skills[skill].experience - getLevelExperience(skills[skill].level - 1), getLevelExperience(skills[skill].level) - getLevelExperience(skills[skill].level - 1));
-        document.getElementById(`${skill}-experience`).innerText = skills[skill].experience.toFixed(1);
-    });
-});
+function addSkill() {
+    const newSkillName = document.getElementById('new-skill-name').value;
+    if (newSkillName) {
+        const type = document.getElementById('management-title').innerText.toLowerCase().includes('mental') ? 'mental' : 'physical';
+        skills[type].push(newSkillName);
+        showSkillManagement(type);
+        document.getElementById('new-skill-name').value = '';
+    }
+}
+
