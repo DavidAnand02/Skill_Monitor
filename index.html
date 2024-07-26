@@ -9,10 +9,13 @@
 <body>
     <div class="container">
         <h1>Skill Tracker</h1>
+        <div id="add-skill-container">
+            <input type="text" id="new-skill-name" placeholder="Enter new skill">
+            <button onclick="addSkill()">Add Skill</button>
+        </div>
         <div id="skill-list">
             <!-- Skills will be dynamically added here -->
         </div>
-        <button onclick="addSkill()">Add Skill</button>
         <button onclick="updateLevels()">Update Levels</button>
     </div>
     <script src="script.js"></script>
