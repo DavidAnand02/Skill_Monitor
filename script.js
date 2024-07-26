@@ -9,7 +9,7 @@ let level = 1;
 const maxLevel = 100;
 const maxExperience = 10000;
 let interval;
-let mode = 'hours'; // Default mode
+let isEditing = false;  // Track if in editing mode
 
 function showSkillList(type) {
     document.getElementById('mental-skills').classList.add('hidden');
@@ -22,8 +22,8 @@ function showSkillList(type) {
     
     skills[type].forEach(skill => {
         const li = document.createElement('li');
-        li.innerHTML = `<span contenteditable="true" onblur="renameSkill('${type}', '${skill}', this.innerText)">${skill}</span>
-                        <button onclick="removeSkill('${type}', '${skill}')">Remove</button>`;
+        li.innerHTML = `<span ${isEditing ? 'contenteditable="true"' : ''} onblur="renameSkill('${type}', '${skill}', this.innerText)">${skill}</span>
+                        <button ${isEditing ? 'contenteditable="true"' : ''} onclick="removeSkill('${type}', '${skill}')">Remove</button>`;
         li.onclick = () => showSkillDetails(skill);
         skillList.appendChild(li);
     });
@@ -55,16 +55,14 @@ function goBack() {
     showSkillList(type);
 }
 
-function startAddingPoints(amount) {
-    const actualAmount = mode === 'hours' ? amount : amount * 100; // Convert reps to a comparable scale if needed
-    addExperience(actualAmount);
-    interval = setInterval(() => addExperience(actualAmount), 100);
+function startAddingPoints(hours) {
+    addExperience(hours);
+    interval = setInterval(() => addExperience(hours), 100);
 }
 
-function startRemovingPoints(amount) {
-    const actualAmount = mode === 'hours' ? amount : amount * 100; // Convert reps to a comparable scale if needed
-    removeExperience(actualAmount);
-    interval = setInterval(() => removeExperience(actualAmount), 100);
+function startRemovingPoints(hours) {
+    removeExperience(hours);
+    interval = setInterval(() => removeExperience(hours), 100);
 }
 
 function stopAddingPoints() {
@@ -75,16 +73,16 @@ function stopRemovingPoints() {
     clearInterval(interval);
 }
 
-function addExperience(amount) {
-    experience += amount;
+function addExperience(hours) {
+    experience += hours;
     saveProgress(currentSkill);
     updateLevel();
     updateProgressBar('experience-bar', experience - getLevelExperience(level - 1), getLevelExperience(level) - getLevelExperience(level - 1));
     document.getElementById('experience').innerText = experience;
 }
 
-function removeExperience(amount) {
-    experience -= amount;
+function removeExperience(hours) {
+    experience -= hours;
     if (experience < 0) experience = 0;
     saveProgress(currentSkill);
     updateLevel();
@@ -132,8 +130,8 @@ function showSkillManagement(type) {
     
     skills[type].forEach(skill => {
         const li = document.createElement('li');
-        li.innerHTML = `<span contenteditable="true" onblur="renameSkill('${type}', '${skill}', this.innerText)">${skill}</span>
-                        <button onclick="removeSkill('${type}', '${skill}')">Remove</button>`;
+        li.innerHTML = `<span ${isEditing ? 'contenteditable="true"' : ''} onblur="renameSkill('${type}', '${skill}', this.innerText)">${skill}</span>
+                        <button ${isEditing ? 'contenteditable="true"' : ''} onclick="removeSkill('${type}', '${skill}')">Remove</button>`;
         skillList.appendChild(li);
     });
     
@@ -183,17 +181,15 @@ function saveSkills(type) {
     localStorage.setItem(`${type}Skills`, JSON.stringify(skills[type]));
 }
 
-function toggleMode() {
-    mode = mode === 'hours' ? 'reps' : 'hours';
-    document.getElementById('toggle-mode-button').innerText = `Switch to ${mode === 'hours' ? 'Reps' : 'Hours'}`;
-    updateModeLabels();
-}
-
-function updateModeLabels() {
-    document.getElementById('add-hour-button').innerText = mode === 'hours' ? 'Add 1 Hour' : 'Add 1 Rep';
-    document.getElementById('add-minute-button').innerText = mode === 'hours' ? 'Add 30 Mins' : 'Add 1/2 Rep';
-    document.getElementById('remove-hour-button').innerText = mode === 'hours' ? 'Remove 1 Hour' : 'Remove 1 Rep';
-    document.getElementById('remove-minute-button').innerText = mode === 'hours' ? 'Remove 30 Mins' : 'Remove 1/2 Rep';
+function toggleEditMode() {
+    isEditing = !isEditing;
+    document.querySelectorAll('[contenteditable]').forEach(element => {
+        element.contentEditable = isEditing;
+    });
+    document.querySelectorAll('button').forEach(button => {
+        button.contentEditable = isEditing;
+    });
+    document.getElementById('edit-text-btn').innerText = isEditing ? 'Save Text' : 'Edit Text';
 }
 
 function saveText(element) {
@@ -211,3 +207,5 @@ document.addEventListener('DOMContentLoaded', () => {
     });
     showSkillList('mental');
 });
+
+document.getElementById('edit-text-btn').addEventListener('click', toggleEditMode);
