@@ -56,6 +56,9 @@ li {
     border-radius: 5px;
     cursor: pointer;
     transition: background-color 0.3s;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
 li:hover {
@@ -99,4 +102,3 @@ input, [contenteditable=true] {
 button#hour-button, button#minute-button, button#remove-hour-button, button#remove-minute-button {
     width: 48%;
 }
-
