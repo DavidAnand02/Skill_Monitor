@@ -1,13 +1,14 @@
 const maxLevel = 100;
 const maxExperience = 10000;
+const skillData = {};
 
 function addSkill() {
     const skillName = document.getElementById('new-skill-name').value.trim();
-    if (skillName === '') return;
+    if (skillName === '' || skillData[skillName]) return; // Avoid adding empty or duplicate skills
 
     const skillList = document.getElementById('skill-list');
     const skillTemplate = document.getElementById('skill-template').content.cloneNode(true);
-    
+
     const skillCard = skillTemplate.querySelector('.skill-card');
     const skillDetails = skillTemplate.querySelector('.skill-details');
     const experienceSpan = skillTemplate.querySelector('.experience');
@@ -17,6 +18,7 @@ function addSkill() {
     const speedBar = skillTemplate.querySelector('.speed-bar');
     
     skillCard.querySelector('.skill-name').innerText = skillName;
+    skillCard.dataset.skillName = skillName; // Store skill name in the data attribute
 
     skillCard.onclick = () => toggleSkillDetails(skillDetails);
     
@@ -35,7 +37,7 @@ function initializeSkillData(skillName) {
     let experience = getSkillData(skillName, 'experience') || 0;
     let level = getSkillData(skillName, 'level') || 1;
 
-    const skillDetails = document.querySelector(`[data-skill-name="${skillName}"] .skill-details`);
+    const skillDetails = document.querySelector(`.skill-card[data-skill-name="${skillName}"] .skill-details`);
     skillDetails.querySelector('.experience').innerText = experience;
     skillDetails.querySelector('.level').innerText = level;
     updateProgressBar(skillDetails.querySelector('.experience-bar'), experience - getLevelExperience(level - 1), getLevelExperience(level) - getLevelExperience(level - 1));
@@ -80,4 +82,63 @@ function updateLevel(skillName) {
     while (experience >= getLevelExperience(level) && level < maxLevel) {
         level++;
     }
-   
+    setSkillData(skillName, 'level', level);
+
+    const skillDetails = document.querySelector(`.skill-card[data-skill-name="${skillName}"] .skill-details`);
+    skillDetails.querySelector('.level').innerText = level;
+    updateProgressBar(skillDetails.querySelector('.experience-bar'), experience - getLevelExperience(level - 1), getLevelExperience(level) - getLevelExperience(level - 1));
+    updateEffectProgress(skillDetails.querySelector('.retention-bar'), level, getSkillData(skillName, 'retention'));
+    updateEffectProgress(skillDetails.querySelector('.speed-bar'), level, getSkillData(skillName, 'speed'));
+}
+
+function getLevelExperience(level) {
+    return Math.pow(level / maxLevel, 2) * maxExperience;
+}
+
+function updateProgressBar(progressBar, value, maxValue) {
+    const percentage = (value / maxValue) * 100;
+    progressBar.style.width = `${percentage}%`;
+}
+
+function updateEffectProgress(progressBar, level, effectLevel) {
+    const effectStage = getEffectStage(level);
+    const stages = { beginner: 33, intermediate: 66, advanced: 100 };
+    progressBar.style.width = `${stages[effectStage]}%`;
+}
+
+function getEffectStage(level) {
+    if (level < 34) return 'beginner';
+    if (level < 67) return 'intermediate';
+    return 'advanced';
+}
+
+function setSkillData(skillName, key, value) {
+    if (!skillData[skillName]) {
+        skillData[skillName] = {};
+    }
+    skillData[skillName][key] = value;
+    saveProgress();
+}
+
+function getSkillData(skillName, key) {
+    return (skillData[skillName] || {})[key];
+}
+
+function saveProgress() {
+    localStorage.setItem('skillData', JSON.stringify(skillData));
+}
+
+function loadProgress() {
+    const savedSkillData = localStorage.getItem('skillData');
+    if (savedSkillData) {
+        Object.assign(skillData, JSON.parse(savedSkillData));
+        // Reinitialize skills on page load
+        for (const skillName in skillData) {
+            initializeSkillData(skillName);
+        }
+    }
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    loadProgress();
+});
