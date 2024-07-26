@@ -28,10 +28,10 @@
             </div>
             <p>Experience: <span id="experience"></span></p>
             <p>Level: <span id="level"></span></p>
-            <button id="add-hour-button" contenteditable="true" onmousedown="startAddingPoints(1)" onmouseup="stopAddingPoints()">Add 1 Hour</button>
-            <button id="add-minute-button" contenteditable="true" onmousedown="startAddingPoints(0.5)" onmouseup="stopAddingPoints()">Add 30 Mins</button>
-            <button id="remove-hour-button" contenteditable="true" onmousedown="startRemovingPoints(1)" onmouseup="stopRemovingPoints()">Remove 1 Hour</button>
-            <button id="remove-minute-button" contenteditable="true" onmousedown="startRemovingPoints(0.5)" onmouseup="stopRemovingPoints()">Remove 30 Mins</button>
+            <button id="add-hour-button" onclick="startAddingPoints(1)" onmousedown="startAddingPoints(1)" onmouseup="stopAddingPoints()">Add 1 Rep</button>
+            <button id="add-minute-button" onclick="startAddingPoints(0.5)" onmousedown="startAddingPoints(0.5)" onmouseup="stopAddingPoints()">Add 1/2 Rep</button>
+            <button id="remove-hour-button" onclick="startRemovingPoints(1)" onmousedown="startRemovingPoints(1)" onmouseup="stopRemovingPoints()">Remove 1 Rep</button>
+            <button id="remove-minute-button" onclick="startRemovingPoints(0.5)" onmousedown="startRemovingPoints(0.5)" onmouseup="stopRemovingPoints()">Remove 1/2 Rep</button>
             <button onclick="goBack()">Back</button>
         </div>
         <div id="skill-management" class="hidden">
@@ -49,3 +49,4 @@
     <script src="script.js"></script>
 </body>
 </html>
+
