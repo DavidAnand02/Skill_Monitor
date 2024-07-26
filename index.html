@@ -9,7 +9,7 @@
 </head>
 <body>
     <div class="container">
-        <h1>Skill Monitor</h1>
+        <h1 contenteditable="true" onblur="saveText(this)">Skill Monitor</h1>
         <button onclick="showSkillList('mental')">Mental Skills</button>
         <button onclick="showSkillList('physical')">Physical Skills</button>
         <div id="mental-skills" class="hidden">
@@ -25,7 +25,7 @@
             <button onclick="goBack()">Back</button>
         </div>
         <div id="skill-details" class="hidden">
-            <h2 id="skill-name"></h2>
+            <h2 id="skill-name" contenteditable="true" onblur="saveText(this)"></h2>
             <p>Experience: <span id="experience">0</span> points</p>
             <p>Level: <span id="level">1</span></p>
             <div class="progress-bar-container">
