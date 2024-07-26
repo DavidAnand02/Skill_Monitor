@@ -1,12 +1,15 @@
 const skills = {}; // Object to store skills and their points
 
 function addSkill() {
-    const skillName = prompt("Enter skill name:");
+    const skillName = document.getElementById('new-skill-name').value.trim();
     if (skillName && !skills[skillName]) {
         skills[skillName] = { points: 0, element: createSkillElement(skillName) };
         document.getElementById('skill-list').appendChild(skills[skillName].element);
+        document.getElementById('new-skill-name').value = ''; // Clear input field
     } else if (skills[skillName]) {
         alert("Skill already exists.");
+    } else {
+        alert("Please enter a skill name.");
     }
 }
 
