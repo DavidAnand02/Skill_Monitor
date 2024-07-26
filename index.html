@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Skill Monitor</title>
     <link rel="stylesheet" href="styles.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
     <div class="container">
@@ -15,119 +14,52 @@
         <button class="toggle-button" onclick="toggleCategory('physical')">Physical Skills</button>
 
         <div id="mental-skills" class="category hidden">
-            <h2>Mental Skills</h2>
-            <div class="skill-card" onclick="toggleSkillDetails('super-learning')">
-                <h3><i class="fas fa-brain"></i> Super Learning</h3>
-                <div id="super-learning" class="skill-details hidden" onclick="event.stopPropagation()">
-                    <p>Experience: <span id="super-learning-experience">0</span> points</p>
-                    <p>Level: <span id="super-learning-level">1</span></p>
-                    <div class="progress-bar-container">
-                        <div class="progress-bar" id="super-learning-experience-bar"></div>
-                    </div>
-                    <p>Effects:</p>
-                    <div class="effect">
-                        <p>Better Retention</p>
-                        <div class="progress-bar-container">
-                            <div class="progress-bar" id="super-learning-retention-bar"></div>
-                        </div>
-                    </div>
-                    <div class="effect">
-                        <p>Speed Learning</p>
-                        <div class="progress-bar-container">
-                            <div class="progress-bar" id="super-learning-speed-bar"></div>
-                        </div>
-                    </div>
-                    <button onmousedown="startAddingPoints('super-learning', 1)" onmouseup="stopAddingPoints()" onmouseleave="stopAddingPoints()">Add 1 Hour</button>
-                    <button onmousedown="startAddingPoints('super-learning', 0.5)" onmouseup="stopAddingPoints()" onmouseleave="stopAddingPoints()">Add 30 Minutes</button>
-                    <button onmousedown="startRemovingPoints('super-learning', 1)" onmouseup="stopRemovingPoints()" onmouseleave="stopRemovingPoints()">Remove 1 Hour</button>
-                    <button onmousedown="startRemovingPoints('super-learning', 0.5)" onmouseup="stopRemovingPoints()" onmouseleave="stopRemovingPoints()">Remove 30 Minutes</button>
-                </div>
+            <div id="super-learning" class="skill-card" onclick="toggleSkillDetails('super-learning')">
+                <h3><i class="fa fa-brain"></i> Super Learning</h3>
             </div>
-            <div class="skill-card" onclick="toggleSkillDetails('meditation')">
-                <h3><i class="fas fa-yoga"></i> Meditation</h3>
-                <div id="meditation" class="skill-details hidden" onclick="event.stopPropagation()">
-                    <p>Experience: <span id="meditation-experience">0</span> points</p>
-                    <p>Level: <span id="meditation-level">1</span></p>
-                    <div class="progress-bar-container">
-                        <div class="progress-bar" id="meditation-experience-bar"></div>
-                    </div>
-                    <p>Effects:</p>
-                    <div class="effect">
-                        <p>Mindfulness</p>
-                        <div class="progress-bar-container">
-                            <div class="progress-bar" id="meditation-mindfulness-bar"></div>
-                        </div>
-                    </div>
-                    <div class="effect">
-                        <p>Stress Reduction</p>
-                        <div class="progress-bar-container">
-                            <div class="progress-bar" id="meditation-stress-bar"></div>
-                        </div>
-                    </div>
-                    <button onmousedown="startAddingPoints('meditation', 1)" onmouseup="stopAddingPoints()" onmouseleave="stopAddingPoints()">Add 1 Hour</button>
-                    <button onmousedown="startAddingPoints('meditation', 0.5)" onmouseup="stopAddingPoints()" onmouseleave="stopAddingPoints()">Add 30 Minutes</button>
-                    <button onmousedown="startRemovingPoints('meditation', 1)" onmouseup="stopRemovingPoints()" onmouseleave="stopRemovingPoints()">Remove 1 Hour</button>
-                    <button onmousedown="startRemovingPoints('meditation', 0.5)" onmouseup="stopRemovingPoints()" onmouseleave="stopRemovingPoints()">Remove 30 Minutes</button>
-                </div>
+            <div id="meditation" class="skill-card" onclick="toggleSkillDetails('meditation')">
+                <h3><i class="fa fa-yoga"></i> Meditation</h3>
             </div>
-            <div class="skill-card" onclick="toggleSkillDetails('kolbs')">
-                <h3><i class="fas fa-book"></i> KOLBS</h3>
-                <div id="kolbs" class="skill-details hidden" onclick="event.stopPropagation()">
-                    <p>Experience: <span id="kolbs-experience">0</span> points</p>
-                    <p>Level: <span id="kolbs-level">1</span></p>
-                    <div class="progress-bar-container">
-                        <div class="progress-bar" id="kolbs-experience-bar"></div>
-                    </div>
-                    <p>Effects:</p>
-                    <div class="effect">
-                        <p>Critical Thinking</p>
-                        <div class="progress-bar-container">
-                            <div class="progress-bar" id="kolbs-thinking-bar"></div>
-                        </div>
-                    </div>
-                    <div class="effect">
-                        <p>Analytical Skills</p>
-                        <div class="progress-bar-container">
-                            <div class="progress-bar" id="kolbs-analytical-bar"></div>
-                        </div>
-                    </div>
-                    <button onmousedown="startAddingPoints('kolbs', 1)" onmouseup="stopAddingPoints()" onmouseleave="stopAddingPoints()">Add 1 Hour</button>
-                    <button onmousedown="startAddingPoints('kolbs', 0.5)" onmouseup="stopAddingPoints()" onmouseleave="stopAddingPoints()">Add 30 Minutes</button>
-                    <button onmousedown="startRemovingPoints('kolbs', 1)" onmouseup="stopRemovingPoints()" onmouseleave="stopRemovingPoints()">Remove 1 Hour</button>
-                    <button onmousedown="startRemovingPoints('kolbs', 0.5)" onmouseup="stopRemovingPoints()" onmouseleave="stopRemovingPoints()">Remove 30 Minutes</button>
-                </div>
+            <div id="kolbs" class="skill-card" onclick="toggleSkillDetails('kolbs')">
+                <h3><i class="fa fa-lightbulb"></i> KOLBS</h3>
             </div>
         </div>
 
         <div id="physical-skills" class="category hidden">
-            <h2>Physical Skills</h2>
-            <div class="skill-card" onclick="toggleSkillDetails('push-ups')">
-                <h3><i class="fas fa-dumbbell"></i> Push Ups</h3>
-                <div id="push-ups" class="skill-details hidden" onclick="event.stopPropagation()">
-                    <p>Reps: <span id="push-ups-reps">0</span></p>
-                    <p>Level: <span id="push-ups-level">1</span></p>
+            <div id="push-ups" class="skill-card" onclick="toggleSkillDetails('push-ups')">
+                <h3><i class="fa fa-dumbbell"></i> Push Ups</h3>
+            </div>
+            <div id="kot-split-squat" class="skill-card" onclick="toggleSkillDetails('kot-split-squat')">
+                <h3><i class="fa fa-running"></i> KOT Split Squat</h3>
+            </div>
+        </div>
+
+        <!-- Skill Details Template -->
+        <div id="skill-details-template" class="skill-details hidden">
+            <p><strong>Level:</strong> <span id="skill-level">1</span></p>
+            <div class="progress-bar-container">
+                <div id="skill-progress-bar" class="progress-bar"></div>
+            </div>
+            <div class="effects">
+                <div class="effect">
+                    <strong>Retention:</strong>
                     <div class="progress-bar-container">
-                        <div class="progress-bar" id="push-ups-reps-bar"></div>
+                        <div id="retention-bar" class="progress-bar"></div>
                     </div>
-                    <button onmousedown="startAddingReps('push-ups', 1)" onmouseup="stopAddingReps()" onmouseleave="stopAddingReps()">Add 1 Rep</button>
-                    <button onmousedown="startRemovingReps('push-ups', 1)" onmouseup="stopRemovingReps()" onmouseleave="stopRemovingReps()">Remove 1 Rep</button>
+                </div>
+                <div class="effect">
+                    <strong>Speed Learning:</strong>
+                    <div class="progress-bar-container">
+                        <div id="speed-bar" class="progress-bar"></div>
+                    </div>
                 </div>
             </div>
-            <div class="skill-card" onclick="toggleSkillDetails('kot-split-squat')">
-                <h3><i class="fas fa-running"></i> KOT Split Squat</h3>
-                <div id="kot-split-squat" class="skill-details hidden" onclick="event.stopPropagation()">
-                    <p>Reps: <span id="kot-split-squat-reps">0</span></p>
-                    <p>Level: <span id="kot-split-squat-level">1</span></p>
-                    <div class="progress-bar-container">
-                        <div class="progress-bar" id="kot-split-squat-reps-bar"></div>
-                    </div>
-                    <button onmousedown="startAddingReps('kot-split-squat', 1)" onmouseup="stopAddingReps()" onmouseleave="stopAddingReps()">Add 1 Rep</button>
-                    <button onmousedown="startRemovingReps('kot-split-squat', 1)" onmouseup="stopRemovingReps()" onmouseleave="stopRemovingReps()">Remove 1 Rep</button>
-                </div>
-            </div>
+            <button onclick="addPoints('super-learning', 1)">Add 1 Hour</button>
+            <button onclick="addPoints('super-learning', 0.5)">Add 30 Minutes</button>
+            <button onclick="removePoints('super-learning', 1)">Remove 1 Hour</button>
+            <button onclick="removePoints('super-learning', 0.5)">Remove 30 Minutes</button>
         </div>
     </div>
     <script src="script.js"></script>
 </body>
 </html>
-
