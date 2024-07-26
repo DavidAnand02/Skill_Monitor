@@ -14,20 +14,15 @@
         <button onclick="showSkillList('physical')">Physical Skills</button>
         <div id="mental-skills" class="hidden">
             <h2>Mental Skills</h2>
-            <ul>
-                <li onclick="showSkillDetails('Super Learning')">Super Learning</li>
-                <li onclick="showSkillDetails('Meditation')">Meditation</li>
-                <li onclick="showSkillDetails('KOLBS')">KOLBS</li>
-            </ul>
+            <ul id="mental-skill-list"></ul>
             <button onclick="showSkillManagement('mental')">Manage Mental Skills</button>
+            <button onclick="goBack()">Back</button>
         </div>
         <div id="physical-skills" class="hidden">
             <h2>Physical Skills</h2>
-            <ul>
-                <li onclick="showSkillDetails('Push ups')">Push ups</li>
-                <li onclick="showSkillDetails('KOT Split Squats')">KOT Split Squats</li>
-            </ul>
+            <ul id="physical-skill-list"></ul>
             <button onclick="showSkillManagement('physical')">Manage Physical Skills</button>
+            <button onclick="goBack()">Back</button>
         </div>
         <div id="skill-details" class="hidden">
             <h2 id="skill-name"></h2>
