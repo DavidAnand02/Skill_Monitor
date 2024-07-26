@@ -21,7 +21,8 @@ function showSkillList(type) {
     
     skills[type].forEach(skill => {
         const li = document.createElement('li');
-        li.innerText = skill;
+        li.innerHTML = `<span contenteditable="true" onblur="renameSkill('${type}', '${skill}', this.innerText)">${skill}</span>
+                        <button onclick="removeSkill('${type}', '${skill}')">Remove</button>`;
         li.onclick = () => showSkillDetails(skill);
         skillList.appendChild(li);
     });
@@ -128,14 +129,8 @@ function showSkillManagement(type) {
     
     skills[type].forEach(skill => {
         const li = document.createElement('li');
-        li.innerText = skill;
-        li.onclick = () => {
-            const newName = prompt('Enter new skill name:', skill);
-            if (newName) {
-                renameSkill(type, skill, newName);
-                showSkillManagement(type);
-            }
-        };
+        li.innerHTML = `<span contenteditable="true" onblur="renameSkill('${type}', '${skill}', this.innerText)">${skill}</span>
+                        <button onclick="removeSkill('${type}', '${skill}')">Remove</button>`;
         skillList.appendChild(li);
     });
     
@@ -158,13 +153,23 @@ function renameSkill(type, oldName, newName) {
 }
 
 function addSkill() {
-    const newSkillName = document.getElementById('new-skill-name').value;
-    if (newSkillName) {
-        const type = document.getElementById('management-title').innerText.toLowerCase().includes('mental') ? 'mental' : 'physical';
+    const type = document.getElementById('management-title').innerText.toLowerCase().includes('mental') ? 'mental' : 'physical';
+    const newSkillName = document.getElementById('new-skill-name').value.trim();
+    if (newSkillName && !skills[type].includes(newSkillName)) {
         skills[type].push(newSkillName);
         saveSkills(type);
         showSkillManagement(type);
         document.getElementById('new-skill-name').value = '';
+    }
+}
+
+function removeSkill(type, skill) {
+    if (confirm(`Are you sure you want to remove ${skill}?`)) {
+        skills[type] = skills[type].filter(item => item !== skill);
+        localStorage.removeItem(`${skill}-experience`);
+        localStorage.removeItem(`${skill}-level`);
+        saveSkills(type);
+        showSkillManagement(type);
     }
 }
 
