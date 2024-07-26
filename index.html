@@ -10,63 +10,44 @@
 <body>
     <div class="container">
         <h1>Skill Monitor</h1>
-
-        <!-- Super Learning Skill Card -->
-        <div class="skill-card" onclick="toggleSkillDetails('super-learning')">
-            <h2><i class="fas fa-brain"></i> Super Learning</h2>
-            <div id="super-learning-details" class="hidden" onclick="event.stopPropagation()">
-                <p>Experience: <span id="super-learning-experience">0</span> points</p>
-                <p>Level: <span id="super-learning-level">1</span></p>
-                <div class="progress-bar-container">
-                    <div class="progress-bar" id="super-learning-bar"></div>
-                </div>
-                <p>Effects:</p>
-                <div class="effect">
-                    <p>Better Retention</p>
-                    <div class="progress-bar-container">
-                        <div class="progress-bar" id="super-learning-retention-bar"></div>
-                    </div>
-                </div>
-                <div class="effect">
-                    <p>Speed Learning</p>
-                    <div class="progress-bar-container">
-                        <div class="progress-bar" id="super-learning-speed-bar"></div>
-                    </div>
-                </div>
-                <button id="super-learning-entry" onmousedown="startAddingPoints('super-learning', 1)" onmouseup="stopAddingPoints()" onmouseleave="stopAddingPoints()">Add 1 Entry</button>
-                <button id="super-learning-half-entry" onmousedown="startAddingPoints('super-learning', 0.5)" onmouseup="stopAddingPoints()" onmouseleave="stopAddingPoints()">Add 1/2 Entry</button>
-                <button id="super-learning-remove-entry" onmousedown="startRemovingPoints('super-learning', 1)" onmouseup="stopRemovingPoints()" onmouseleave="stopRemovingPoints()">Remove 1 Entry</button>
-                <button id="super-learning-remove-half-entry" onmousedown="startRemovingPoints('super-learning', 0.5)" onmouseup="stopRemovingPoints()" onmouseleave="stopRemovingPoints()">Remove 1/2 Entry</button>
-            </div>
+        <button onclick="showSkillList('mental')">Mental Skills</button>
+        <button onclick="showSkillList('physical')">Physical Skills</button>
+        <div id="mental-skills" class="hidden">
+            <h2>Mental Skills</h2>
+            <ul>
+                <li onclick="showSkillDetails('Super Learning')">Super Learning</li>
+                <li onclick="showSkillDetails('Meditation')">Meditation</li>
+                <li onclick="showSkillDetails('KOLBS')">KOLBS</li>
+            </ul>
+            <button onclick="showSkillManagement('mental')">Manage Mental Skills</button>
         </div>
-
-        <!-- KOLBS Skill Card -->
-        <div class="skill-card" onclick="toggleSkillDetails('kolbs')">
-            <h2><i class="fas fa-lightbulb"></i> KOLBS</h2>
-            <div id="kolbs-details" class="hidden" onclick="event.stopPropagation()">
-                <p>Experience: <span id="kolbs-experience">0</span> points</p>
-                <p>Level: <span id="kolbs-level">1</span></p>
-                <div class="progress-bar-container">
-                    <div class="progress-bar" id="kolbs-bar"></div>
-                </div>
-                <p>Effects:</p>
-                <div class="effect">
-                    <p>Accelerated Improvement</p>
-                    <div class="progress-bar-container">
-                        <div class="progress-bar" id="kolbs-improvement-bar"></div>
-                    </div>
-                </div>
-                <div class="effect">
-                    <p>Reflection</p>
-                    <div class="progress-bar-container">
-                        <div class="progress-bar" id="kolbs-reflection-bar"></div>
-                    </div>
-                </div>
-                <button id="kolbs-entry" onmousedown="startAddingPoints('kolbs', 1)" onmouseup="stopAddingPoints()" onmouseleave="stopAddingPoints()">Add 1 Entry</button>
-                <button id="kolbs-half-entry" onmousedown="startAddingPoints('kolbs', 0.5)" onmouseup="stopAddingPoints()" onmouseleave="stopAddingPoints()">Add 1/2 Entry</button>
-                <button id="kolbs-remove-entry" onmousedown="startRemovingPoints('kolbs', 1)" onmouseup="stopRemovingPoints()" onmouseleave="stopRemovingPoints()">Remove 1 Entry</button>
-                <button id="kolbs-remove-half-entry" onmousedown="startRemovingPoints('kolbs', 0.5)" onmouseup="stopRemovingPoints()" onmouseleave="stopRemovingPoints()">Remove 1/2 Entry</button>
+        <div id="physical-skills" class="hidden">
+            <h2>Physical Skills</h2>
+            <ul>
+                <li onclick="showSkillDetails('Push ups')">Push ups</li>
+                <li onclick="showSkillDetails('KOT Split Squats')">KOT Split Squats</li>
+            </ul>
+            <button onclick="showSkillManagement('physical')">Manage Physical Skills</button>
+        </div>
+        <div id="skill-details" class="hidden">
+            <h2 id="skill-name"></h2>
+            <p>Experience: <span id="experience">0</span> points</p>
+            <p>Level: <span id="level">1</span></p>
+            <div class="progress-bar-container">
+                <div class="progress-bar" id="experience-bar"></div>
             </div>
+            <button id="hour-button" onmousedown="startAddingPoints(1)" onmouseup="stopAddingPoints()" onmouseleave="stopAddingPoints()">Add 1 Hour</button>
+            <button id="minute-button" onmousedown="startAddingPoints(0.5)" onmouseup="stopAddingPoints()" onmouseleave="stopAddingPoints()">Add 30 Minutes</button>
+            <button id="remove-hour-button" onmousedown="startRemovingPoints(1)" onmouseup="stopRemovingPoints()" onmouseleave="stopRemovingPoints()">Remove 1 Hour</button>
+            <button id="remove-minute-button" onmousedown="startRemovingPoints(0.5)" onmouseup="stopRemovingPoints()" onmouseleave="stopRemovingPoints()">Remove 30 Minutes</button>
+            <button onclick="goBack()">Back</button>
+        </div>
+        <div id="skill-management" class="hidden">
+            <h2 id="management-title"></h2>
+            <ul id="skill-list"></ul>
+            <input type="text" id="new-skill-name" placeholder="New Skill Name">
+            <button onclick="addSkill()">Add Skill</button>
+            <button onclick="goBack()">Back</button>
         </div>
     </div>
     <script src="script.js"></script>
