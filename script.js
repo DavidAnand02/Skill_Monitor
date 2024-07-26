@@ -9,6 +9,7 @@ let level = 1;
 const maxLevel = 100;
 const maxExperience = 10000;
 let interval;
+let mode = 'hours'; // Default mode
 
 function showSkillList(type) {
     document.getElementById('mental-skills').classList.add('hidden');
@@ -54,14 +55,16 @@ function goBack() {
     showSkillList(type);
 }
 
-function startAddingPoints(hours) {
-    addExperience(hours);
-    interval = setInterval(() => addExperience(hours), 100);
+function startAddingPoints(amount) {
+    const actualAmount = mode === 'hours' ? amount : amount * 100; // Convert reps to a comparable scale if needed
+    addExperience(actualAmount);
+    interval = setInterval(() => addExperience(actualAmount), 100);
 }
 
-function startRemovingPoints(hours) {
-    removeExperience(hours);
-    interval = setInterval(() => removeExperience(hours), 100);
+function startRemovingPoints(amount) {
+    const actualAmount = mode === 'hours' ? amount : amount * 100; // Convert reps to a comparable scale if needed
+    removeExperience(actualAmount);
+    interval = setInterval(() => removeExperience(actualAmount), 100);
 }
 
 function stopAddingPoints() {
@@ -72,16 +75,16 @@ function stopRemovingPoints() {
     clearInterval(interval);
 }
 
-function addExperience(hours) {
-    experience += hours;
+function addExperience(amount) {
+    experience += amount;
     saveProgress(currentSkill);
     updateLevel();
     updateProgressBar('experience-bar', experience - getLevelExperience(level - 1), getLevelExperience(level) - getLevelExperience(level - 1));
     document.getElementById('experience').innerText = experience;
 }
 
-function removeExperience(hours) {
-    experience -= hours;
+function removeExperience(amount) {
+    experience -= amount;
     if (experience < 0) experience = 0;
     saveProgress(currentSkill);
     updateLevel();
@@ -141,6 +144,9 @@ function showSkillManagement(type) {
 }
 
 function renameSkill(type, oldName, newName) {
+    if (newName.trim() === '' || skills[type].includes(newName)) {
+        return;
+    }
     const index = skills[type].indexOf(oldName);
     if (index > -1) {
         skills[type][index] = newName;
@@ -175,6 +181,19 @@ function removeSkill(type, skill) {
 
 function saveSkills(type) {
     localStorage.setItem(`${type}Skills`, JSON.stringify(skills[type]));
+}
+
+function toggleMode() {
+    mode = mode === 'hours' ? 'reps' : 'hours';
+    document.getElementById('toggle-mode-button').innerText = `Switch to ${mode === 'hours' ? 'Reps' : 'Hours'}`;
+    updateModeLabels();
+}
+
+function updateModeLabels() {
+    document.getElementById('add-hour-button').innerText = mode === 'hours' ? 'Add 1 Hour' : 'Add 1 Rep';
+    document.getElementById('add-minute-button').innerText = mode === 'hours' ? 'Add 30 Mins' : 'Add 30 Reps';
+    document.getElementById('remove-hour-button').innerText = mode === 'hours' ? 'Remove 1 Hour' : 'Remove 1 Rep';
+    document.getElementById('remove-minute-button').innerText = mode === 'hours' ? 'Remove 30 Mins' : 'Remove 30 Reps';
 }
 
 function saveText(element) {
