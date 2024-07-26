@@ -1,104 +1,167 @@
+/* General styles */
 body {
     font-family: Arial, sans-serif;
-    background-color: #1e1e2f;
-    color: #ffffff;
+    background-color: #f4f4f9;
     margin: 0;
     padding: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
+    color: #333;
 }
 
 .container {
-    background-color: #2b2b3d;
+    max-width: 800px;
+    margin: 20px auto;
     padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
-    text-align: center;
-    width: 90%;
-    max-width: 600px;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
 h1, h2 {
-    color: #ff8c00;
+    color: #4a4a4a;
 }
 
 button {
-    background-color: #3b3b5f;
-    color: #ffffff;
+    background-color: #6c63ff;
     border: none;
-    padding: 10px 20px;
-    margin: 5px;
+    color: #fff;
+    padding: 10px 15px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 5px 2px;
     cursor: pointer;
     border-radius: 5px;
-    font-size: 16px;
-    transition: background-color 0.3s;
+    transition: background-color 0.3s, transform 0.2s;
 }
 
 button:hover {
-    background-color: #50507a;
+    background-color: #5a54e0;
+}
+
+button:active {
+    transform: scale(0.98);
+}
+
+input[type="text"] {
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    width: calc(100% - 22px);
+    margin: 5px 0;
 }
 
 .hidden {
     display: none;
 }
 
-ul {
-    list-style: none;
+/* Skill List */
+#mental-skill-list, #physical-skill-list, #skill-list {
+    list-style-type: none;
     padding: 0;
 }
 
-li {
-    background-color: #3b3b5f;
-    margin: 5px;
+#mental-skill-list li, #physical-skill-list li, #skill-list li {
+    background-color: #f0f0f5;
+    border: 1px solid #ddd;
     padding: 10px;
+    margin: 5px 0;
     border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s;
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
 
-li:hover {
-    background-color: #50507a;
+#mental-skill-list li span, #physical-skill-list li span, #skill-list li span {
+    flex: 1;
 }
 
-input, [contenteditable=true] {
-    background-color: #3b3b5f;
-    color: #ffffff;
-    padding: 10px;
-    margin: 10px 0;
+#mental-skill-list li button, #physical-skill-list li button, #skill-list li button {
+    background-color: #ff4c4c;
     border: none;
+    color: white;
+    padding: 5px 10px;
+    cursor: pointer;
     border-radius: 5px;
-    width: calc(100% - 22px); /* Adjusted for padding */
-    font-size: 16px;
+    font-size: 14px;
+}
+
+#mental-skill-list li button:hover, #physical-skill-list li button:hover, #skill-list li button:hover {
+    background-color: #e04343;
+}
+
+/* Skill Details */
+#skill-details {
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+}
+
+#skill-details h2 {
+    margin-top: 0;
 }
 
 .progress-bar-container {
-    background-color: #3b3b5f;
+    background-color: #e0e0e0;
     border-radius: 5px;
-    overflow: hidden;
+    height: 25px;
     margin: 10px 0;
 }
 
 .progress-bar {
-    background-color: #ff8c00;
-    height: 20px;
-    width: 0;
+    height: 100%;
+    background-color: #6c63ff;
+    border-radius: 5px;
+    width: 0%;
     transition: width 0.3s;
 }
 
-#skill-name[contenteditable=true] {
-    display: inline-block;
-    border-bottom: 1px dashed #ff8c00;
+#mode-selection {
+    margin: 20px 0;
 }
 
-#experience, #level {
-    font-weight: bold;
+#toggle-mode-button {
+    background-color: #ffb74d;
+    border: none;
+    color: #fff;
+    padding: 10px 15px;
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: 16px;
+    transition: background-color 0.3s;
 }
 
-button#hour-button, button#minute-button, button#remove-hour-button, button#remove-minute-button {
-    width: 48%;
+#toggle-mode-button:hover {
+    background-color: #f57c00;
+}
+
+#toggle-mode-button:active {
+    transform: scale(0.98);
+}
+
+/* Management Page */
+#skill-management {
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+}
+
+#management-title {
+    margin-top: 0;
+}
+
+#skill-management input[type="text"] {
+    width: calc(100% - 22px);
+}
+
+/* Button for adding/removing hours or reps */
+button {
+    background-color: #6c63ff;
+}
+
+button:active {
+    background-color: #5a54e0;
 }
