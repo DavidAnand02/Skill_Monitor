@@ -9,7 +9,6 @@ let level = 1;
 const maxLevel = 100;
 const maxExperience = 10000;
 let interval;
-let isEditing = false;  // Track if in editing mode
 
 function showSkillList(type) {
     document.getElementById('mental-skills').classList.add('hidden');
@@ -22,8 +21,8 @@ function showSkillList(type) {
     
     skills[type].forEach(skill => {
         const li = document.createElement('li');
-        li.innerHTML = `<span ${isEditing ? 'contenteditable="true"' : ''} onblur="renameSkill('${type}', '${skill}', this.innerText)">${skill}</span>
-                        <button ${isEditing ? 'contenteditable="true"' : ''} onclick="removeSkill('${type}', '${skill}')">Remove</button>`;
+        li.innerHTML = `<span contenteditable="true" onblur="renameSkill('${type}', '${skill}', this.innerText)">${skill}</span>
+                        <button onclick="removeSkill('${type}', '${skill}')">Remove</button>`;
         li.onclick = () => showSkillDetails(skill);
         skillList.appendChild(li);
     });
@@ -130,8 +129,8 @@ function showSkillManagement(type) {
     
     skills[type].forEach(skill => {
         const li = document.createElement('li');
-        li.innerHTML = `<span ${isEditing ? 'contenteditable="true"' : ''} onblur="renameSkill('${type}', '${skill}', this.innerText)">${skill}</span>
-                        <button ${isEditing ? 'contenteditable="true"' : ''} onclick="removeSkill('${type}', '${skill}')">Remove</button>`;
+        li.innerHTML = `<span contenteditable="true" onblur="renameSkill('${type}', '${skill}', this.innerText)">${skill}</span>
+                        <button onclick="removeSkill('${type}', '${skill}')">Remove</button>`;
         skillList.appendChild(li);
     });
     
@@ -142,9 +141,6 @@ function showSkillManagement(type) {
 }
 
 function renameSkill(type, oldName, newName) {
-    if (newName.trim() === '' || skills[type].includes(newName)) {
-        return;
-    }
     const index = skills[type].indexOf(oldName);
     if (index > -1) {
         skills[type][index] = newName;
@@ -181,17 +177,6 @@ function saveSkills(type) {
     localStorage.setItem(`${type}Skills`, JSON.stringify(skills[type]));
 }
 
-function toggleEditMode() {
-    isEditing = !isEditing;
-    document.querySelectorAll('[contenteditable]').forEach(element => {
-        element.contentEditable = isEditing;
-    });
-    document.querySelectorAll('button').forEach(button => {
-        button.contentEditable = isEditing;
-    });
-    document.getElementById('edit-text-btn').innerText = isEditing ? 'Save Text' : 'Edit Text';
-}
-
 function saveText(element) {
     const key = element.id;
     localStorage.setItem(key, element.innerText);
@@ -208,4 +193,3 @@ document.addEventListener('DOMContentLoaded', () => {
     showSkillList('mental');
 });
 
-document.getElementById('edit-text-btn').addEventListener('click', toggleEditMode);
