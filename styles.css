@@ -1,73 +1,93 @@
 body {
     font-family: Arial, sans-serif;
-    background-color: #f4f4f4;
+    background-color: #2e3b55;
     margin: 0;
-    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    color: #fff;
 }
 
 .container {
-    width: 80%;
-    max-width: 800px;
-    margin: 20px auto;
+    background: #3e4a68;
     padding: 20px;
-    background-color: #fff;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    width: 350px;
+    text-align: center;
 }
 
-#add-skill-container {
+h1 {
     margin-bottom: 20px;
 }
 
-#new-skill-name {
-    padding: 10px;
-    margin-right: 10px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    width: calc(100% - 120px);
-    box-sizing: border-box;
+#skill-list {
+    max-height: 400px;
+    overflow-y: auto;
+    margin-bottom: 20px;
 }
 
-.skill-item {
-    display: flex;
-    align-items: center;
+.skill-card {
+    margin-bottom: 10px;
+    cursor: pointer;
+    background: #4b5a6e;
+    border-radius: 5px;
+    padding: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.hidden {
+    display: none;
+}
+
+.progress-bar-container {
+    background: #1e293b;
+    border-radius: 5px;
+    overflow: hidden;
     margin-bottom: 10px;
 }
 
-.skill-item input {
-    margin-right: 10px;
-}
-
 .progress-bar {
-    width: 100px;
     height: 20px;
-    background: #e0e0e0;
-    border-radius: 10px;
-    margin-left: 10px;
-    position: relative;
-}
-
-.progress-bar span {
-    display: block;
-    height: 100%;
-    background: #4caf50;
-    border-radius: 10px;
-    position: absolute;
-    top: 0;
-    left: 0;
+    background: #6373b6;
+    width: 0;
 }
 
 button {
-    margin-top: 20px;
-    padding: 10px 15px;
+    background: #6373b6;
     border: none;
-    background-color: #007bff;
+    padding: 10px;
+    margin: 5px;
     color: #fff;
     border-radius: 5px;
     cursor: pointer;
 }
 
 button:hover {
-    background-color: #0056b3;
+    background: #4f5a8a;
+}
+
+button:active {
+    background: #3e4a68;
+}
+
+.effect {
+    margin-bottom: 20px;
+}
+
+#add-skill-form {
+    margin-top: 20px;
+}
+
+#add-skill-form input {
+    padding: 10px;
+    margin-right: 10px;
+    border-radius: 5px;
+    border: none;
+}
+
+#add-skill-form button {
+    padding: 10px;
 }
 
