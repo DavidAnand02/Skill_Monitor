@@ -1,79 +1,30 @@
 body {
     font-family: Arial, sans-serif;
-    background-color: #f0f4f8;
-    color: #333;
+    background-color: #2e3b55;
     margin: 0;
-    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    color: #fff;
 }
 
 .container {
-    width: 90%;
-    max-width: 1200px;
-    margin: 20px auto;
-    background: #fff;
+    background: #3e4a68;
     padding: 20px;
-    border-radius: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    width: 300px;
+    text-align: center;
 }
 
 h1 {
     margin-bottom: 20px;
-    text-align: center;
-}
-
-.toggle-button {
-    background: #6a1b9a;
-    border: none;
-    padding: 10px;
-    margin: 5px;
-    color: #fff;
-    border-radius: 5px;
-    cursor: pointer;
-    display: block;
-    width: 100%;
-}
-
-.toggle-button:hover {
-    background: #8e24aa;
-}
-
-.toggle-button:active {
-    background: #6d1b6a;
-}
-
-.category {
-    margin-bottom: 30px;
 }
 
 .skill-card {
     margin-bottom: 20px;
     cursor: pointer;
-    padding: 10px;
-    border-radius: 5px;
-    background: #e3f2fd;
-}
-
-.skill-card:hover {
-    background: #b3e5fc;
-}
-
-.skill-card h3 {
-    margin: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.skill-card i {
-    margin-right: 10px;
-}
-
-.skill-details {
-    margin-top: 10px;
-    padding: 10px;
-    border: 1px solid #b3e5fc;
-    border-radius: 5px;
-    background: #e1f5fe;
 }
 
 .hidden {
@@ -81,7 +32,7 @@ h1 {
 }
 
 .progress-bar-container {
-    background: #e3f2fd;
+    background: #1e293b;
     border-radius: 5px;
     overflow: hidden;
     margin-bottom: 10px;
@@ -89,12 +40,12 @@ h1 {
 
 .progress-bar {
     height: 20px;
-    background: #6200ea;
+    background: #6373b6;
     width: 0;
 }
 
 button {
-    background: #6200ea;
+    background: #6373b6;
     border: none;
     padding: 10px;
     margin: 5px;
@@ -104,13 +55,23 @@ button {
 }
 
 button:hover {
-    background: #3700b3;
+    background: #4f5a8a;
 }
 
 button:active {
-    background: #6200ea;
+    background: #3e4a68;
 }
 
-.effects .effect {
+.effect {
     margin-bottom: 20px;
+}
+
+.skill-card h2 {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.skill-card i {
+    margin-right: 10px;
 }
