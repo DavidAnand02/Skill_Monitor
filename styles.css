@@ -20,6 +20,20 @@ h1, h2 {
     color: #4a4a4a;
 }
 
+/* Make contenteditable text look editable */
+[contenteditable=true] {
+    border: 1px solid #ddd;
+    padding: 5px;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+    min-height: 20px;
+}
+
+[contenteditable=true]:focus {
+    border-color: #6c63ff;
+}
+
+/* Button styles */
 button {
     background-color: #6c63ff;
     border: none;
@@ -151,10 +165,6 @@ input[type="text"] {
 
 #management-title {
     margin-top: 0;
-}
-
-#skill-management input[type="text"] {
-    width: calc(100% - 22px);
 }
 
 /* Button for adding/removing hours or reps */
