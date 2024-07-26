@@ -1,80 +1,83 @@
-const skills = {}; // Object to store skills and their points
+const maxLevel = 100;
+const maxExperience = 10000;
 
 function addSkill() {
     const skillName = document.getElementById('new-skill-name').value.trim();
-    if (skillName && !skills[skillName]) {
-        skills[skillName] = { points: 0, element: createSkillElement(skillName) };
-        document.getElementById('skill-list').appendChild(skills[skillName].element);
-        document.getElementById('new-skill-name').value = ''; // Clear input field
-    } else if (skills[skillName]) {
-        alert("Skill already exists.");
+    if (skillName === '') return;
+
+    const skillList = document.getElementById('skill-list');
+    const skillTemplate = document.getElementById('skill-template').content.cloneNode(true);
+    
+    const skillCard = skillTemplate.querySelector('.skill-card');
+    const skillDetails = skillTemplate.querySelector('.skill-details');
+    const experienceSpan = skillTemplate.querySelector('.experience');
+    const levelSpan = skillTemplate.querySelector('.level');
+    const experienceBar = skillTemplate.querySelector('.experience-bar');
+    const retentionBar = skillTemplate.querySelector('.retention-bar');
+    const speedBar = skillTemplate.querySelector('.speed-bar');
+    
+    skillCard.querySelector('.skill-name').innerText = skillName;
+
+    skillCard.onclick = () => toggleSkillDetails(skillDetails);
+    
+    skillDetails.querySelector('.hour-button').onclick = (e) => handleButtonClick(e, 1, skillName, 'add');
+    skillDetails.querySelector('.minute-button').onclick = (e) => handleButtonClick(e, 0.5, skillName, 'add');
+    skillDetails.querySelector('.remove-hour-button').onclick = (e) => handleButtonClick(e, 1, skillName, 'remove');
+    skillDetails.querySelector('.remove-minute-button').onclick = (e) => handleButtonClick(e, 0.5, skillName, 'remove');
+    
+    skillList.appendChild(skillTemplate);
+
+    // Initialize skill data
+    initializeSkillData(skillName);
+}
+
+function initializeSkillData(skillName) {
+    let experience = getSkillData(skillName, 'experience') || 0;
+    let level = getSkillData(skillName, 'level') || 1;
+
+    const skillDetails = document.querySelector(`[data-skill-name="${skillName}"] .skill-details`);
+    skillDetails.querySelector('.experience').innerText = experience;
+    skillDetails.querySelector('.level').innerText = level;
+    updateProgressBar(skillDetails.querySelector('.experience-bar'), experience - getLevelExperience(level - 1), getLevelExperience(level) - getLevelExperience(level - 1));
+    updateEffectProgress(skillDetails.querySelector('.retention-bar'), level, getSkillData(skillName, 'retention'));
+    updateEffectProgress(skillDetails.querySelector('.speed-bar'), level, getSkillData(skillName, 'speed'));
+}
+
+function toggleSkillDetails(skillDetails) {
+    skillDetails.classList.toggle('hidden');
+}
+
+function handleButtonClick(event, hours, skillName, action) {
+    event.stopPropagation();
+    const skillDetails = event.target.closest('.skill-details');
+    
+    if (action === 'add') {
+        addExperience(skillName, hours);
     } else {
-        alert("Please enter a skill name.");
+        removeExperience(skillName, hours);
     }
+    updateSkillDetails(skillDetails, skillName);
 }
 
-function createSkillElement(skillName) {
-    const container = document.createElement('div');
-    container.className = 'skill-item';
-
-    const name = document.createElement('span');
-    name.innerText = skillName;
-    container.appendChild(name);
-
-    const addButton = document.createElement('button');
-    addButton.innerText = '+1h';
-    addButton.onclick = () => addPoints(skillName, 1);
-    container.appendChild(addButton);
-
-    const addHalfButton = document.createElement('button');
-    addHalfButton.innerText = '+0.5h';
-    addHalfButton.onclick = () => addPoints(skillName, 0.5);
-    container.appendChild(addHalfButton);
-
-    const removeButton = document.createElement('button');
-    removeButton.innerText = 'Remove';
-    removeButton.onclick = () => removeSkill(skillName);
-    container.appendChild(removeButton);
-
-    const progressBar = document.createElement('div');
-    progressBar.className = 'progress-bar';
-    container.appendChild(progressBar);
-
-    const progressFill = document.createElement('span');
-    progressBar.appendChild(progressFill);
-
-    return container;
+function addExperience(skillName, hours) {
+    let experience = getSkillData(skillName, 'experience') || 0;
+    experience += hours;
+    setSkillData(skillName, 'experience', experience);
+    updateLevel(skillName);
 }
 
-function addPoints(skillName, hours) {
-    if (skills[skillName]) {
-        skills[skillName].points += hours;
-        updateProgressBar(skillName);
+function removeExperience(skillName, hours) {
+    let experience = getSkillData(skillName, 'experience') || 0;
+    experience -= hours;
+    if (experience < 0) experience = 0;
+    setSkillData(skillName, 'experience', experience);
+    updateLevel(skillName);
+}
+
+function updateLevel(skillName) {
+    let experience = getSkillData(skillName, 'experience') || 0;
+    let level = 1;
+    while (experience >= getLevelExperience(level) && level < maxLevel) {
+        level++;
     }
-}
-
-function removeSkill(skillName) {
-    const skillElement = skills[skillName].element;
-    if (skillElement) {
-        skillElement.remove();
-        delete skills[skillName];
-    }
-}
-
-function updateProgressBar(skillName) {
-    const skill = skills[skillName];
-    if (skill) {
-        const totalPointsRequired = calculateTotalPoints(skill.points);
-        const percentage = Math.min((skill.points / totalPointsRequired) * 100, 100);
-        skill.element.querySelector('.progress-bar span').style.width = percentage + '%';
-    }
-}
-
-function calculateTotalPoints(points) {
-    // Exponential leveling system
-    return 10000 * Math.pow(1.1, Math.floor(points / 100));
-}
-
-function updateLevels() {
-    Object.keys(skills).forEach(skillName => updateProgressBar(skillName));
-}
+   
