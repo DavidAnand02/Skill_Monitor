@@ -40,6 +40,16 @@ button:hover {
     background-color: #50507a;
 }
 
+/* Additional styling for the remove skill button */
+.remove-skill-button {
+    background-color: #e74c3c; /* Red color for remove button */
+}
+
+.remove-skill-button:hover {
+    background-color: #c0392b; /* Darker red on hover */
+}
+
+
 .hidden {
     display: none;
 }
