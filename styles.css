@@ -62,7 +62,9 @@ li:hover {
     background-color: #50507a;
 }
 
-input {
+input, [contenteditable=true] {
+    background-color: #3b3b5f;
+    color: #ffffff;
     padding: 10px;
     margin: 10px 0;
     border: none;
@@ -83,5 +85,18 @@ input {
     height: 20px;
     width: 0;
     transition: width 0.3s;
+}
+
+#skill-name[contenteditable=true] {
+    display: inline-block;
+    border-bottom: 1px dashed #ff8c00;
+}
+
+#experience, #level {
+    font-weight: bold;
+}
+
+button#hour-button, button#minute-button, button#remove-hour-button, button#remove-minute-button {
+    width: 48%;
 }
 
