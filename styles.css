@@ -1,66 +1,104 @@
 body {
     font-family: Arial, sans-serif;
-    background-color: #f5f5f5;
+    background-color: #1e1e2f;
+    color: #ffffff;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
 }
 
 .container {
-    max-width: 600px;
-    margin: 20px auto;
+    background-color: #2b2b3d;
     padding: 20px;
-    background-color: #ffffff;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+    text-align: center;
+    width: 90%;
+    max-width: 600px;
+}
+
+h1, h2 {
+    color: #ff8c00;
+}
+
+button {
+    background-color: #3b3b5f;
+    color: #ffffff;
+    border: none;
+    padding: 10px 20px;
+    margin: 5px;
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: 16px;
+    transition: background-color 0.3s;
+}
+
+button:hover {
+    background-color: #50507a;
 }
 
 .hidden {
     display: none;
 }
 
-button {
-    padding: 10px;
+ul {
+    list-style: none;
+    padding: 0;
+}
+
+li {
+    background-color: #3b3b5f;
     margin: 5px;
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+li:hover {
+    background-color: #50507a;
+}
+
+input, [contenteditable=true] {
+    background-color: #3b3b5f;
+    color: #ffffff;
+    padding: 10px;
+    margin: 10px 0;
     border: none;
     border-radius: 5px;
-    background-color: #007bff;
-    color: #fff;
-    cursor: pointer;
-}
-
-button:hover {
-    background-color: #0056b3;
-}
-
-#edit-text-btn {
-    background-color: #28a745;
-}
-
-#edit-text-btn:hover {
-    background-color: #218838;
-}
-
-h1, h2 {
-    font-size: 24px;
-    margin: 10px 0;
-    color: #333;
+    width: calc(100% - 22px); /* Adjusted for padding */
+    font-size: 16px;
 }
 
 .progress-bar-container {
-    width: 100%;
-    background-color: #e0e0e0;
+    background-color: #3b3b5f;
     border-radius: 5px;
     overflow: hidden;
+    margin: 10px 0;
 }
 
 .progress-bar {
+    background-color: #ff8c00;
     height: 20px;
-    background-color: #007bff;
-    width: 0%;
+    width: 0;
+    transition: width 0.3s;
 }
 
-input[type="text"] {
-    padding: 10px;
-    margin: 5px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    width: calc(100% - 22px);
+#skill-name[contenteditable=true] {
+    display: inline-block;
+    border-bottom: 1px dashed #ff8c00;
+}
+
+#experience, #level {
+    font-weight: bold;
+}
+
+button#hour-button, button#minute-button, button#remove-hour-button, button#remove-minute-button {
+    width: 48%;
 }
