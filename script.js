@@ -191,9 +191,9 @@ function toggleMode() {
 
 function updateModeLabels() {
     document.getElementById('add-hour-button').innerText = mode === 'hours' ? 'Add 1 Hour' : 'Add 1 Rep';
-    document.getElementById('add-minute-button').innerText = mode === 'hours' ? 'Add 30 Mins' : 'Add 30 Reps';
+    document.getElementById('add-minute-button').innerText = mode === 'hours' ? 'Add 30 Mins' : 'Add 1/2 Rep';
     document.getElementById('remove-hour-button').innerText = mode === 'hours' ? 'Remove 1 Hour' : 'Remove 1 Rep';
-    document.getElementById('remove-minute-button').innerText = mode === 'hours' ? 'Remove 30 Mins' : 'Remove 30 Reps';
+    document.getElementById('remove-minute-button').innerText = mode === 'hours' ? 'Remove 30 Mins' : 'Remove 1/2 Rep';
 }
 
 function saveText(element) {
