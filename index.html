@@ -10,8 +10,8 @@
 <body>
     <div class="container">
         <h1 contenteditable="true" onblur="saveText(this)">Skill Monitor</h1>
-        <button contenteditable="true" onblur="saveText(this)" onclick="showSkillList('mental')">Mental Skills</button>
-        <button contenteditable="true" onblur="saveText(this)" onclick="showSkillList('physical')">Physical Skills</button>
+        <button onclick="showSkillList('mental')">Mental Skills</button>
+        <button onclick="showSkillList('physical')">Physical Skills</button>
         <div id="mental-skills" class="hidden">
             <h2>Mental Skills</h2>
             <ul id="mental-skill-list"></ul>
