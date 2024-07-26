@@ -10,7 +10,7 @@
 <body>
     <div class="container">
         <h1>Skill Monitor</h1>
-
+        
         <!-- Skill List -->
         <div id="skill-list">
             <!-- Skills will be dynamically added here -->
@@ -21,37 +21,6 @@
             <input type="text" id="new-skill-name" placeholder="Enter new skill name">
             <button onclick="addSkill()">Add Skill</button>
         </div>
-
-        <!-- Hidden skill details template -->
-        <template id="skill-template">
-            <div class="skill-card">
-                <h2><i class="fas fa-brain"></i> <span class="skill-name"></span></h2>
-                <div class="skill-details hidden" onclick="event.stopPropagation()">
-                    <p>Experience: <span class="experience">0</span> points</p>
-                    <p>Level: <span class="level">1</span></p>
-                    <div class="progress-bar-container">
-                        <div class="progress-bar experience-bar"></div>
-                    </div>
-                    <p>Effects:</p>
-                    <div class="effect">
-                        <p>Better Retention</p>
-                        <div class="progress-bar-container">
-                            <div class="progress-bar retention-bar"></div>
-                        </div>
-                    </div>
-                    <div class="effect">
-                        <p>Speed Learning</p>
-                        <div class="progress-bar-container">
-                            <div class="progress-bar speed-bar"></div>
-                        </div>
-                    </div>
-                    <button class="hour-button" onmousedown="startAddingPoints(this, 1)" onmouseup="stopAddingPoints()" onmouseleave="stopAddingPoints()">Add 1 Hour</button>
-                    <button class="minute-button" onmousedown="startAddingPoints(this, 0.5)" onmouseup="stopAddingPoints()" onmouseleave="stopAddingPoints()">Add 30 Minutes</button>
-                    <button class="remove-hour-button" onmousedown="startRemovingPoints(this, 1)" onmouseup="stopRemovingPoints()" onmouseleave="stopRemovingPoints()">Remove 1 Hour</button>
-                    <button class="remove-minute-button" onmousedown="startRemovingPoints(this, 0.5)" onmouseup="stopRemovingPoints()" onmouseleave="stopRemovingPoints()">Remove 30 Minutes</button>
-                </div>
-            </div>
-        </template>
     </div>
     <script src="script.js"></script>
 </body>
