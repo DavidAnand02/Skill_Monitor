@@ -14,7 +14,7 @@ body {
     padding: 20px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     border-radius: 10px;
-    width: 350px;
+    width: 400px;
     text-align: center;
 }
 
@@ -22,19 +22,13 @@ h1 {
     margin-bottom: 20px;
 }
 
-#skill-list {
-    max-height: 400px;
-    overflow-y: auto;
-    margin-bottom: 20px;
-}
-
 .skill-card {
-    margin-bottom: 10px;
+    margin-bottom: 20px;
     cursor: pointer;
-    background: #4b5a6e;
-    border-radius: 5px;
-    padding: 10px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    background: #4a5a7b;
+    padding: 15px;
+    border-radius: 8px;
+    border: 1px solid #5a6a8b;
 }
 
 .hidden {
@@ -76,17 +70,23 @@ button:active {
     margin-bottom: 20px;
 }
 
-#add-skill-form {
+.skill-card h2 {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.skill-card i {
+    margin-right: 10px;
+}
+
+.add-skill {
     margin-top: 20px;
 }
 
-#add-skill-form input {
+input {
     padding: 10px;
     margin-right: 10px;
-    border-radius: 5px;
     border: none;
-}
-
-#add-skill-form button {
-    padding: 10px;
+    border-radius: 5px;
 }
