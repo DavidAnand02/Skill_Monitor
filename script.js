@@ -9,6 +9,12 @@ const skills = {
 
 let interval;
 
+// Toggle visibility of skill categories
+function toggleCategory(category) {
+    const categoryDiv = document.getElementById(`${category}-skills`);
+    categoryDiv.classList.toggle('hidden');
+}
+
 // Toggle visibility of skill details
 function toggleSkillDetails(skill) {
     const skillDetails = document.getElementById(skill);
