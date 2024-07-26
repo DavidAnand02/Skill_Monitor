@@ -1,6 +1,6 @@
 let skills = {
-    mental: ['Super Learning', 'Meditation', 'KOLBS'],
-    physical: ['Push ups', 'KOT Split Squats']
+    mental: JSON.parse(localStorage.getItem('mentalSkills')) || ['Super Learning', 'Meditation', 'KOLBS'],
+    physical: JSON.parse(localStorage.getItem('physicalSkills')) || ['Push ups', 'KOT Split Squats']
 };
 
 let currentSkill = '';
@@ -15,17 +15,31 @@ function showSkillList(type) {
     document.getElementById('physical-skills').classList.add('hidden');
     document.getElementById('skill-details').classList.add('hidden');
     document.getElementById('skill-management').classList.add('hidden');
+    
+    const skillList = document.getElementById(`${type}-skill-list`);
+    skillList.innerHTML = '';
+    
+    skills[type].forEach(skill => {
+        const li = document.createElement('li');
+        li.innerText = skill;
+        li.onclick = () => showSkillDetails(skill);
+        skillList.appendChild(li);
+    });
+    
     document.getElementById(`${type}-skills`).classList.remove('hidden');
 }
 
 function showSkillDetails(skill) {
     currentSkill = skill;
-    experience = loadProgress(skill).experience || 0;
-    level = loadProgress(skill).level || 1;
+    const savedData = loadProgress(skill);
+    experience = savedData.experience || 0;
+    level = savedData.level || 1;
+    
     document.getElementById('skill-details').classList.remove('hidden');
     document.getElementById('mental-skills').classList.add('hidden');
     document.getElementById('physical-skills').classList.add('hidden');
     document.getElementById('skill-name').innerText = skill;
+    
     updateLevel();
     updateProgressBar('experience-bar', experience - getLevelExperience(level - 1), getLevelExperience(level) - getLevelExperience(level - 1));
     document.getElementById('experience').innerText = experience;
@@ -34,7 +48,9 @@ function showSkillDetails(skill) {
 function goBack() {
     document.getElementById('skill-details').classList.add('hidden');
     document.getElementById('skill-management').classList.add('hidden');
-    showSkillList(currentSkill.includes(' ') ? 'physical' : 'mental');
+    
+    const type = skills.mental.includes(currentSkill) ? 'mental' : 'physical';
+    showSkillList(type);
 }
 
 function startAddingPoints(hours) {
@@ -109,6 +125,7 @@ function loadProgress(skill) {
 function showSkillManagement(type) {
     const skillList = document.getElementById('skill-list');
     skillList.innerHTML = '';
+    
     skills[type].forEach(skill => {
         const li = document.createElement('li');
         li.innerText = skill;
@@ -121,6 +138,7 @@ function showSkillManagement(type) {
         };
         skillList.appendChild(li);
     });
+    
     document.getElementById('management-title').innerText = `${type.charAt(0).toUpperCase() + type.slice(1)} Skills Management`;
     document.getElementById('skill-management').classList.remove('hidden');
     document.getElementById('mental-skills').classList.add('hidden');
@@ -135,6 +153,7 @@ function renameSkill(type, oldName, newName) {
         localStorage.setItem(`${newName}-level`, localStorage.getItem(`${oldName}-level`));
         localStorage.removeItem(`${oldName}-experience`);
         localStorage.removeItem(`${oldName}-level`);
+        saveSkills(type);
     }
 }
 
@@ -143,8 +162,17 @@ function addSkill() {
     if (newSkillName) {
         const type = document.getElementById('management-title').innerText.toLowerCase().includes('mental') ? 'mental' : 'physical';
         skills[type].push(newSkillName);
+        saveSkills(type);
         showSkillManagement(type);
         document.getElementById('new-skill-name').value = '';
     }
 }
 
+function saveSkills(type) {
+    localStorage.setItem(`${type}Skills`, JSON.stringify(skills[type]));
+}
+
+// Initialize
+document.addEventListener('DOMContentLoaded', () => {
+    showSkillList('mental');
+});
