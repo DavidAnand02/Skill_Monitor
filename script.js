@@ -21,7 +21,7 @@ function showSkillList(type) {
     
     skills[type].forEach(skill => {
         const li = document.createElement('li');
-        li.innerText = skill;
+        li.innerHTML = `${skill} <button class="remove-skill-button" onclick="removeSkill('${type}', '${skill}')">Remove</button>`;
         li.onclick = () => showSkillDetails(skill);
         skillList.appendChild(li);
     });
@@ -128,7 +128,7 @@ function showSkillManagement(type) {
     
     skills[type].forEach(skill => {
         const li = document.createElement('li');
-        li.innerText = skill;
+        li.innerHTML = `${skill} <button class="remove-skill-button" onclick="removeSkill('${type}', '${skill}')">Remove</button>`;
         li.onclick = () => {
             const newName = prompt('Enter new skill name:', skill);
             if (newName) {
@@ -166,6 +166,12 @@ function addSkill() {
         showSkillManagement(type);
         document.getElementById('new-skill-name').value = '';
     }
+}
+
+function removeSkill(type, skill) {
+    skills[type] = skills[type].filter(s => s !== skill);
+    saveSkills(type);
+    showSkillList(type);
 }
 
 function saveSkills(type) {
